@@ -1,0 +1,51 @@
+---
+# tasks file for roles/iti-webserver-role
+- name: Debug Here
+  ansible.builtin.debug:
+    msg: the distribution is {{ distribution }}
+
+- name: Install webserver on amazon linux
+  ansible.builtin.command: amazon-linux-extras install {{ web_server_app }}1.12=latest -y
+  args:
+    creates: /sbin/nginx
+  when: distribution == "Amazon"
+
+- name: Install nginx for redhat based os
+  ansible.builtin.yum:
+    name: "{{ web_server_app }}"
+    state: present
+    update_cache: true
+  when: distribution == "RedHat"
+
+- name: Install nginx for debian based os
+  ansible.builtin.apt:
+    name: "{{ web_server_app }}"
+    state: present
+    update_cache: true
+  when: distribution == "Ubuntu"
+
+- name: Start and enable nginx
+  ansible.builtin.service:
+    name: "{{ web_server_service }}"
+    state: started
+    enabled: true
+
+- name: Put index.html in {{ web_server_path }}
+  ansible.builtin.template:
+    src: index.html.j2
+    dest: "{{ web_server_path }}/index.html"
+    mode: 0644
+  notify: Restart the webserver
+
+- name: Copy the css directory to {{ web_server_path }}
+  ansible.builtin.copy:
+    src: css
+    dest: "{{ web_server_path }}"
+    mode: 0644
+
+- name: Test
+  ansible.builtin.debug:
+    msg:
+      - "{{ hostvars[inventory_hostname]['ansible_fqdn'] }}"
+      - "{{ hostvars[inventory_hostname]['ansible_host'] }}"
+      - "{{ hostvars[inventory_hostname]['ansible_facts']['distribution'] }}"

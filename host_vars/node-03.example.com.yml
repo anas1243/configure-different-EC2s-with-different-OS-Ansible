@@ -1,0 +1,4 @@
+---
+ansible_host: 44.203.12.78
+ansible_ssh_user: ec2-user
+web_server_path: /usr/share/nginx/html

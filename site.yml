@@ -1,0 +1,5 @@
+---
+- name: Playbook to add a list of users
+  hosts: webServers
+  roles:
+    - iti-webserver-role

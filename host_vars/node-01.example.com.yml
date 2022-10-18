@@ -1,0 +1,7 @@
+---
+ansible_host: 54.87.225.4
+ansible_ssh_user: ec2-user
+ansible_python_interpreter: /usr/bin/python3
+web_server_app: nginx
+web_server_service: nginx
+web_server_path: /usr/share/nginx/html

@@ -1,0 +1,4 @@
+---
+ansible_host: 54.86.113.156
+ansible_ssh_user: ubuntu
+web_server_path: /var/www/html

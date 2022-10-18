@@ -1,0 +1,5 @@
+---
+# vars file for roles/iti-webserver-role
+distribution: "{{ hostvars[inventory_hostname]['ansible_facts']['distribution'] }}"
+web_server_app: nginx
+web_server_service: nginx
