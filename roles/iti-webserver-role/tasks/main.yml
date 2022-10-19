@@ -1,9 +1,5 @@
 ---
 # tasks file for roles/iti-webserver-role
-- name: Debug Here
-  ansible.builtin.debug:
-    msg: the distribution is {{ distribution }}
-
 - name: Install webserver on amazon linux
   ansible.builtin.command: amazon-linux-extras install {{ web_server_app }}1.12=latest -y
   args:
@@ -49,3 +45,10 @@
       - "{{ hostvars[inventory_hostname]['ansible_fqdn'] }}"
       - "{{ hostvars[inventory_hostname]['ansible_host'] }}"
       - "{{ hostvars[inventory_hostname]['ansible_facts']['distribution'] }}"
+# Set the environment variable ANSIBLE_VAULT_PASSWORD_FILE="pathInYourPc"
+# The file must contain a text Marianas
+# Then uncomment the following line a run my play normally
+
+# - name: Debug Here
+#   ansible.builtin.debug:
+#     msg: the distribution is {{ distribution }} username is {{ username }} password is {{ password }}

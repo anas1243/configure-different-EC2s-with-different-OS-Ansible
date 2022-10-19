@@ -1,5 +1,7 @@
 ---
 - name: Playbook to add a list of users
   hosts: webServers
+  vars_files:
+    - secrets.yml
   roles:
     - iti-webserver-role
